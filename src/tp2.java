@@ -17,7 +17,7 @@ public class tp2 {
         boolean loop = true;
 
         while (loop) {
-
+            System.out.println("skjhfkgdskjhgsghd");
             
         }
     }

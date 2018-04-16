@@ -15,6 +15,7 @@ public class tp2 {
      */
     public static void main(String[] args) {
         System.out.println("Hello Worldeerhgerher !!!");
+        System.out.println("Wowowo");
         // TODO code application logic here
     }
     

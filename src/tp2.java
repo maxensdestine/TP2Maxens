@@ -14,10 +14,11 @@ public class tp2 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        System.out.println("Hello Worldeerhgerher !!!");
-        System.out.println("Wowowo");
-        //lalalalalalalala
-        // TODO code application logic here
+        boolean loop = true;
+
+        while (loop) {
+
+            
+        }
     }
-    
 }

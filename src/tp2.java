@@ -18,6 +18,9 @@ public class tp2 {
 
         while (loop) {
             System.out.println("skjhfkgdskjhgsghd");
+            System.out.println("wjhgwjfjsghfdkjhgf");
+            
+            System.out.println("kjhsgfkjhgdskffd");
             
         }
     }

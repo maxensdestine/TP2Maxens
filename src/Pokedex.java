@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -17,12 +18,15 @@ import java.util.ArrayList;
 public class Pokedex {
 
     private ArrayList<Personne> utilisateur = new ArrayList();
-  public void programme(){
-  
-  chargerPersonne();
-  test();
-  
-  }
+
+    public void programme() {
+
+        chargerPersonne();
+        test();
+        menu(utilisateur);
+
+    }
+
     private void chargerPersonne() {
         String Texte;
         int i = 0;
@@ -49,15 +53,111 @@ Ici le programme prend la ligne et la transforme en tableau, en se servant de ; 
 
         try {
             Lire.close();//fermeture du fichier
-        } catch (IOException e) {System.out.println("Erreur inconnu lors de la fermeture de personnes.txt");}
+        } catch (IOException e) {
+            System.out.println("Erreur inconnu lors de la fermeture de personnes.txt");
+        }
 
     }
-    
-    private void test(){
-    
-    for(Personne temp: utilisateur){
-        System.out.println(temp.getNom()+" "+temp.getMotDePasseEncryp()+" ");
+
+    private void test() {
+
+        for (Personne temp : utilisateur) {
+            System.out.println(temp.getNom() + " " + temp.getMotDePasseEncryp() + " ");
+        }
+
     }
-    
+
+    private void menu(ArrayList<Personne> utilisateur) {
+        Scanner scanner = new Scanner(System.in); //creer scanner
+        String username;
+        String password;
+        int compteur = 0;
+        boolean verif = true;
+        int nombreuser = utilisateur.size();
+        int position = 0;
+        boolean loop = true;
+
+        while (loop) {
+            try {
+                while (compteur < 3 && verif) {
+                    System.out.println("Nom d'utilisateur:");
+                    username = scanner.nextLine();
+
+                    for (int i = 0; i < (nombreuser); i++) {
+                        if (username.equals(utilisateur.get(i).getCodeAcces())) {
+                            verif = false;
+                            loop = true;
+                            position = i;
+                            break;
+                        } else {
+                            loop = false;
+                        }
+                    }
+
+                    compteur++;
+                }
+
+                if (loop == false) {
+                    break;
+                }
+                verif = true;
+                compteur = 0;
+
+                while (compteur < 3 && verif) {
+                    System.out.println("Mot de passe:");
+                    password = scanner.nextLine();
+
+                    if (password.equals(utilisateur.get(position).getMotDePasseEncryp())) {
+                        verif = false;
+                        loop = true;
+                    }
+
+                    compteur++;
+                }
+
+            } catch (StringIndexOutOfBoundsException e) {
+                System.out.println("Veuillez effectuer des saisis valides!");
+            }
+
+            if (loop == false) {
+                break;
+            }
+
+            System.out.println("");
+            System.out.println("Bonjour! Bienvenu dans le pokedex!");
+            menu_option();
+
+            loop = false;
+        }
+
+        System.out.println("À la prochaine fois!");
+    }
+
+    private int menu_option() {
+        Scanner scanner = new Scanner(System.in); //creer scanner
+        boolean erreur = true;
+        int choix = 0;
+
+        System.out.println("Que voulez-vous faire?");
+        System.out.println("1. Consultez des spécimens déjà saisis");
+        System.out.println("2. Saisir un nouveau spéciment");
+        System.out.println("3. Modifier un spécimen");
+        System.out.println("4. Statistique");
+        System.out.println("5. Quitter le programme");
+
+        while (erreur) {
+            try {
+                choix = Integer.parseInt(scanner.nextLine());
+
+                if (choix > 5 || choix < 1) {
+                    erreur = false;
+                }
+
+            } catch (NumberFormatException e) {
+                System.out.println("Veuillez saisir un nombre réel!");
+            }
+        }
+
+        return choix;
     }
 }

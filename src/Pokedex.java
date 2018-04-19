@@ -17,14 +17,21 @@ import java.util.ArrayList;
 public class Pokedex {
 
     private ArrayList<Personne> utilisateur = new ArrayList();
+    private ArrayList<Specimen> infoPersonne = new ArrayList();
+    private ArrayList<Animal> infoAnimal = new ArrayList();
+    private ArrayList<Poisson> infoPoisson = new ArrayList();
+    private ArrayList<MammifereMarin> infoMammifereMarin = new ArrayList();
+    private ArrayList<Autre> infoAutre = new ArrayList();
+    private ArrayList<Mineral> infoMineral = new ArrayList();
+    private ArrayList<Plante> infoPlante = new ArrayList();
   public void programme(){
   
-  chargerPersonne();
-  test();
+  
   
   }
+  
     private void chargerPersonne() {
-        String Texte;
+        String texte;
         int i = 0;
         //On cree un bufferedreader pour pouvoir lire le fichier
         BufferedReader Lire = null;
@@ -35,9 +42,9 @@ public class Pokedex {
         }
 
         try {
-            while ((Texte = Lire.readLine()) != null) {/*programme reste dans la boucle tant qu'il reste une ligne dans le fichier
-Ici le programme prend la ligne et la transforme en tableau, en se servant de ; comme separateur*/
-                String[] ligne = Texte.split(";");// ; est le separateur pour les informations du fichier
+            while ((texte = Lire.readLine()) != null) {/*programme reste dans la boucle tant qu'il reste une ligne dans le fichier
+         Ici le programme prend la ligne et la transforme en tableau, en se servant de ; comme separateur*/
+                String[] ligne = texte.split(";");// ; est le separateur pour les informations du fichier
                 Personne personne = new Personne(ligne[0], ligne[1], ligne[2], Integer.parseInt(ligne[3]));
                 utilisateur.add(personne);
             }

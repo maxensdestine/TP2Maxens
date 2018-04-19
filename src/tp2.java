@@ -14,10 +14,8 @@ public class tp2 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        boolean loop = true;
-
-        while (loop) {//gg
-            
-        }
+     Pokedex pokedex = new Pokedex();   
+      pokedex.programme();
+       
     }
 }

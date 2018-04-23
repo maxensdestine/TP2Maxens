@@ -23,7 +23,7 @@ public class Pokedex {
 
         chargerPersonne();
         test();
-        menu(utilisateur);
+        menuDebut(utilisateur);
 
     }
 
@@ -67,7 +67,7 @@ Ici le programme prend la ligne et la transforme en tableau, en se servant de ; 
 
     }
 
-    private void menu(ArrayList<Personne> utilisateur) {
+    private void menuDebut(ArrayList<Personne> utilisateur) {
         Scanner scanner = new Scanner(System.in); //creer scanner
         String username;
         String password;
@@ -99,6 +99,7 @@ Ici le programme prend la ligne et la transforme en tableau, en se servant de ; 
                 if (loop == false) {
                     break;
                 }
+
                 verif = true;
                 compteur = 0;
 
@@ -124,18 +125,22 @@ Ici le programme prend la ligne et la transforme en tableau, en se servant de ; 
 
             System.out.println("");
             System.out.println("Bonjour! Bienvenu dans le pokedex!");
-            menu_option();
+            boolean continuer = true;
 
+            while (continuer) {
+                continuer = menu_option();
+            }
             loop = false;
         }
 
         System.out.println("À la prochaine fois!");
     }
 
-    private int menu_option() {
+    private boolean menu_option() {
         Scanner scanner = new Scanner(System.in); //creer scanner
         boolean erreur = true;
         int choix = 0;
+        boolean continuer = true;
 
         System.out.println("Que voulez-vous faire?");
         System.out.println("1. Consultez des spécimens déjà saisis");
@@ -149,14 +154,49 @@ Ici le programme prend la ligne et la transforme en tableau, en se servant de ; 
                 choix = Integer.parseInt(scanner.nextLine());
 
                 if (choix > 5 || choix < 1) {
+                    erreur = true;
+                } else {
                     erreur = false;
                 }
-
             } catch (NumberFormatException e) {
                 System.out.println("Veuillez saisir un nombre réel!");
             }
         }
 
-        return choix;
+        switch (choix) {
+            case 1:
+                consulterSpecimen();
+                break;
+            case 2:
+                nouveauSpecimen();
+                break;
+            case 3:
+                modifierSpecimen();
+                break;
+            case 4:
+                statistique();
+                break;
+            case 5:
+                continuer = false;
+                break;
+        }
+
+        return continuer;
+    }
+
+    private void consulterSpecimen() {
+
+    }
+
+    private void nouveauSpecimen() {
+
+    }
+
+    private void modifierSpecimen() {
+
+    }
+
+    private void statistique() {
+
     }
 }

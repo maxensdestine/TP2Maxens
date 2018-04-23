@@ -137,7 +137,6 @@ Ici le programme prend la ligne et la transforme en tableau, en se servant de ; 
     }
 
     private boolean menu_option() {
-        Scanner scanner = new Scanner(System.in); //creer scanner
         boolean erreur = true;
         int choix = 0;
         boolean continuer = true;
@@ -148,18 +147,15 @@ Ici le programme prend la ligne et la transforme en tableau, en se servant de ; 
         System.out.println("3. Modifier un spécimen");
         System.out.println("4. Statistique");
         System.out.println("5. Quitter le programme");
+        System.out.println("Veuillez entrer votre choix:");
 
         while (erreur) {
-            try {
-                choix = Integer.parseInt(scanner.nextLine());
+            choix = entrer();
 
-                if (choix > 5 || choix < 1) {
-                    erreur = true;
-                } else {
-                    erreur = false;
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("Veuillez saisir un nombre réel!");
+            if (choix > 5 || choix < 1) {
+                erreur = true;
+            } else {
+                erreur = false;
             }
         }
 
@@ -185,7 +181,57 @@ Ici le programme prend la ligne et la transforme en tableau, en se servant de ; 
     }
 
     private void consulterSpecimen() {
+        boolean erreur = true;
+        int choix = 0;
 
+        System.out.println("Que voulez-vous faire?");
+        System.out.println("1. Afficher toutes les entrées?");
+        System.out.println("2. Afficher les entrées d'un seul type?");
+        System.out.println("3. Afficher les animaux par ordre chronologique d'observation?");
+        System.out.println("Veuillez entrer votre choix:");
+
+        while (erreur) {
+            choix = entrer();
+
+            if (choix > 3 || choix < 1) {
+                erreur = true;
+            } else {
+                erreur = false;
+            }
+        }
+
+        switch (choix) {
+            case 1:
+                System.out.println("Hello world!");
+                //trier toute les entrees par ordre croissant (tri par insertion) dans une liste (affichage ordre croissant)
+                //inverser la pile en file pour ordre decroissant
+                break;
+            case 2:
+                System.out.println("Quel type desirez-vous observer?");
+                System.out.println("1. Poisson");
+                System.out.println("2. Mammifere marin");
+                System.out.println("3. Plante aquatique");
+                System.out.println("4. Mineral");
+                System.out.println("Veuillez entrer votre choix:");
+
+                erreur = true;
+                
+                while (erreur) {
+                    choix = entrer();
+
+                    if (choix > 4 || choix < 1) {
+                        erreur = true;
+                    } else {
+                        erreur = false;
+                    }
+                }
+                
+                // tri a bulle croissant, affichage d'un type
+                break;
+            case 3:
+                //tri au choix, TOUT les ANIMAUX par ordre chronologique d'observation
+                break;
+        }
     }
 
     private void nouveauSpecimen() {
@@ -198,5 +244,17 @@ Ici le programme prend la ligne et la transforme en tableau, en se servant de ; 
 
     private void statistique() {
 
+    }
+
+    private int entrer() {
+        Scanner scanner = new Scanner(System.in); //creer scanner
+        int choix = 0;
+
+        try {
+            choix = Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Veuillez saisir un nombre réel!");
+        }
+        return choix;
     }
 }

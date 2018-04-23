@@ -75,6 +75,7 @@ Ici le programme prend la ligne et la transforme en tableau, en se servant de ; 
         boolean verif = true;
         int position = 0;
         boolean loop = true;
+        boolean continuer = true;
 
         while (loop) {
             try {
@@ -125,7 +126,6 @@ Ici le programme prend la ligne et la transforme en tableau, en se servant de ; 
 
             System.out.println("");
             System.out.println("Bonjour! Bienvenu dans le pokedex!");
-            boolean continuer = true;
 
             while (continuer) {
                 continuer = menu_option();

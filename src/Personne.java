@@ -10,14 +10,14 @@
  */
 public class Personne {
 
-    private String codeAcces,nom, motDePasse, motDePasseEncryp;
+    private String codeAcces, nom, motDePasse, motDePasseEncryp;
     private int age;
 
-    protected Personne(String codeAcces,String motDePasseEncryp,String nom, int age) {
-        this.codeAcces=codeAcces;
-        this.motDePasseEncryp=motDePasseEncryp;
-        this.nom=nom;
-        this.age=age;
+    protected Personne(String codeAcces, String motDePasseEncryp, String nom, int age) {
+        this.codeAcces = codeAcces;
+        this.motDePasseEncryp = motDePasseEncryp;
+        this.nom = nom;
+        this.age = age;
 
     }
 
@@ -30,8 +30,13 @@ public class Personne {
 
         return motDePasseEncryp;
     }
-    
-     protected String getNom() {
+
+    protected String getCodeAcces() {
+
+        return codeAcces;
+    }
+
+    protected String getNom() {
 
         return nom;
     }

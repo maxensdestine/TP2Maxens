@@ -73,7 +73,6 @@ Ici le programme prend la ligne et la transforme en tableau, en se servant de ; 
         String password;
         int compteur = 0;
         boolean verif = true;
-        int nombreuser = utilisateur.size();
         int position = 0;
         boolean loop = true;
 
@@ -83,7 +82,7 @@ Ici le programme prend la ligne et la transforme en tableau, en se servant de ; 
                     System.out.println("Nom d'utilisateur:");
                     username = scanner.nextLine();
 
-                    for (int i = 0; i < (nombreuser); i++) {
+                    for (int i = 0; i < (utilisateur.size()); i++) {
                         if (username.equals(utilisateur.get(i).getCodeAcces())) {
                             verif = false;
                             loop = true;

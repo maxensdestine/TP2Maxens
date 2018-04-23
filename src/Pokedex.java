@@ -64,6 +64,7 @@ Ici le programme prend la ligne et la transforme en tableau, en se servant de ; 
         for (Personne temp : utilisateur) {
             System.out.println(temp.getNom() + " " + temp.getMotDePasseEncryp() + " ");
         }
+        System.out.println("");
 
     }
 
@@ -112,17 +113,19 @@ Ici le programme prend la ligne et la transforme en tableau, en se servant de ; 
                     if (password.equals(utilisateur.get(position).getMotDePasseEncryp())) {
                         verif = false;
                         loop = true;
+                    } else {
+                        loop = false;
                     }
 
                     compteur++;
                 }
 
+                if (loop == false) {
+                    break;
+                }
+
             } catch (StringIndexOutOfBoundsException e) {
                 System.out.println("Veuillez effectuer des saisis valides!");
-            }
-
-            if (loop == false) {
-                break;
             }
 
             System.out.println("");
@@ -134,6 +137,7 @@ Ici le programme prend la ligne et la transforme en tableau, en se servant de ; 
             //////////////////////////////////////////////////////////////////////sauvegarder toute les entrer (SERIALISATION)
             loop = false;
         }
+        System.out.println("");
         System.out.println("Merci!");
         System.out.println("Et a la prochaine fois!");
     }
@@ -143,7 +147,6 @@ Ici le programme prend la ligne et la transforme en tableau, en se servant de ; 
         int choix = 0;
         boolean continuer = true;
 
-        System.out.println("");
         System.out.println("Que voulez-vous faire?");
         System.out.println("1. Consultez des spécimens déjà saisis");
         System.out.println("2. Saisir un nouveau spéciment");
@@ -305,7 +308,7 @@ Ici le programme prend la ligne et la transforme en tableau, en se servant de ; 
                 break;
             case 3:
                 for (int i = 0; i < (utilisateur.size()); i++) {
-                    System.out.println("La personne #"+(i+1)+" est "+utilisateur.get(i).getNom()+" et il/elle a "+utilisateur.get(i).getAge()+" ans.");
+                    System.out.println("La personne #" + (i + 1) + " est " + utilisateur.get(i).getNom() + " et il/elle a " + utilisateur.get(i).getAge() + " ans.");
                 }
                 break;
         }

@@ -129,19 +129,21 @@ Ici le programme prend la ligne et la transforme en tableau, en se servant de ; 
             System.out.println("Bonjour! Bienvenu dans le pokedex!");
 
             while (continuer) {
-                continuer = menu_option();
+                continuer = menu_option(utilisateur);
             }
+            //////////////////////////////////////////////////////////////////////sauvegarder toute les entrer (SERIALISATION)
             loop = false;
         }
-
-        System.out.println("À la prochaine fois!");
+        System.out.println("Merci!");
+        System.out.println("Et a la prochaine fois!");
     }
 
-    private boolean menu_option() {
+    private boolean menu_option(ArrayList<Personne> utilisateur) {
         boolean erreur = true;
         int choix = 0;
         boolean continuer = true;
 
+        System.out.println("");
         System.out.println("Que voulez-vous faire?");
         System.out.println("1. Consultez des spécimens déjà saisis");
         System.out.println("2. Saisir un nouveau spéciment");
@@ -171,7 +173,7 @@ Ici le programme prend la ligne et la transforme en tableau, en se servant de ; 
                 modifierSpecimen();
                 break;
             case 4:
-                statistique();
+                statistique(utilisateur);
                 break;
             case 5:
                 continuer = false;
@@ -185,6 +187,7 @@ Ici le programme prend la ligne et la transforme en tableau, en se servant de ; 
         boolean erreur = true;
         int choix = 0;
 
+        System.out.println("");
         System.out.println("Que voulez-vous faire?");
         System.out.println("1. Afficher toutes les entrées?");
         System.out.println("2. Afficher les entrées d'un seul type?");
@@ -203,51 +206,109 @@ Ici le programme prend la ligne et la transforme en tableau, en se servant de ; 
 
         switch (choix) {
             case 1:
-                System.out.println("Hello world!");
-                //trier toute les entrees par ordre croissant (tri par insertion) dans une liste (affichage ordre croissant)
-                //inverser la pile en file pour ordre decroissant
+                //////////////////////////////////////////////////////////////////trier toute les entrees par ordre croissant (tri par insertion) dans une liste (affichage ordre croissant)
+                //////////////////////////////////////////////////////////////////inverser la pile en file pour ordre decroissant
                 break;
             case 2:
-                System.out.println("Quel type desirez-vous observer?");
-                System.out.println("1. Poisson");
-                System.out.println("2. Mammifere marin");
-                System.out.println("3. Plante aquatique");
-                System.out.println("4. Mineral");
-                System.out.println("Veuillez entrer votre choix:");
+                choix = entrerTypeSpecimen();
 
-                erreur = true;
-
-                while (erreur) {
-                    choix = entrer();
-
-                    if (choix > 4 || choix < 1) {
-                        erreur = true;
-                    } else {
-                        erreur = false;
-                    }
-                }
-
-                // tri a bulle croissant, affichage d'un type
+                ////////////////////////////////////////////////////////////////// tri a bulle croissant, affichage d'un type
                 break;
             case 3:
-                //tri au choix, TOUT les ANIMAUX par ordre chronologique d'observation
+                //////////////////////////////////////////////////////////////////tri au choix, TOUT les ANIMAUX par ordre chronologique d'observation
                 break;
         }
     }
 
     //methode pour ajouter un nouveau specimen au pokedex
     private void nouveauSpecimen() {
-
+        //////////////////////////////////////////////////////////////////////////creer un numero de transaction unique
+        //////////////////////////////////////////////////////////////////////////la date d'observation (sous qu'elle forme? DD/MM/YYYY?)
+        //////////////////////////////////////////////////////////////////////////le type d'entrer
+        //////////////////////////////////////////////////////////////////////////tout les attributs propres a ce type
+        //////////////////////////////////////////////////////////////////////////la quantite observer
+        //////////////////////////////////////////////////////////////////////////garder en memoire l'utilisateur qui effectue cette entrer
     }
 
     //methode pour modifier un specimen du pokedex
     private void modifierSpecimen() {
+        boolean erreur = true;
+        int choix = 0;
 
+        System.out.println("");
+        System.out.println("Que voulez-vous faire?");
+        System.out.println("1. Supprimer un specimen");
+        System.out.println("2. Modifier la quantite apercu d'un specimen");
+        System.out.println("3. Retourner au menu principal");
+        System.out.println("Veuillez entrer votre choix:");
+
+        while (erreur) {
+            choix = entrer();
+
+            if (choix > 3 || choix < 1) {
+                erreur = true;
+            } else {
+                erreur = false;
+            }
+        }
+
+        switch (choix) {
+            case 1:
+                choix = entrerTypeSpecimen();
+
+                //////////////////////////////////////////////////////////////////afficher la liste de tous les elements de ce type (en ordre croissant) 
+                //////////////////////////////////////////////////////////////////demander quel element supprimer
+                //////////////////////////////////////////////////////////////////supprimer cet element
+                break;
+            case 2:
+                choix = entrerTypeSpecimen();
+
+                //////////////////////////////////////////////////////////////////afficher la liste de tous les elements de ce type (en ordre croissant) 
+                //////////////////////////////////////////////////////////////////demander quel element devra etre modifier
+                //////////////////////////////////////////////////////////////////demander le nombre a ajouter a la quantite existente
+                //////////////////////////////////////////////////////////////////supprimer cet element
+                break;
+            case 3: //retour au menu principal
+                System.out.println("");
+                break;
+        }
     }
 
     //methode pour afficher les statistiques du pokedex
-    private void statistique() {
+    private void statistique(ArrayList<Personne> utilisateur) {
+        boolean erreur = true;
+        int choix = 0;
 
+        System.out.println("");
+        System.out.println("Que voulez-vous voir?");
+        System.out.println("1. Afficher le nombre d'entrees, pour chacun des specimens?");
+        System.out.println("2. Afficher le nombre d'entrees, pour chacune des personnes?");
+        System.out.println("3. Afficher les informations des personnes du syteme?");
+        System.out.println("Veuillez entrer votre choix:");
+
+        while (erreur) {
+            choix = entrer();
+
+            if (choix > 3 || choix < 1) {
+                erreur = true;
+            } else {
+                erreur = false;
+            }
+        }
+
+        switch (choix) {
+            case 1:
+                //////////////////////////////////////////////////////////////////afficher le nombre d'entrer pour chacun des types de specimens
+                break;
+            case 2:
+                //////////////////////////////////////////////////////////////////afficher le nombre d'entrer pour chacune des personnes
+                break;
+            case 3:
+                for (int i = 0; i < (utilisateur.size()); i++) {
+                    System.out.println("La personne #"+(i+1)+" est "+utilisateur.get(i).getNom()+" et il/elle a "+utilisateur.get(i).getAge()+" ans.");
+                }
+                break;
+        }
     }
 
     //methode pour entrer nombre int de l'utilisateur
@@ -261,5 +322,30 @@ Ici le programme prend la ligne et la transforme en tableau, en se servant de ; 
             System.out.println("Veuillez saisir un nombre réel!");
         }
         return choix; // return le choix de l'utilisateur
+    }
+
+    //methode pour choisir le type de specimen desirer
+    private int entrerTypeSpecimen() {
+        boolean erreur = true;
+        int choix = 0;
+
+        System.out.println("Quel type desirez-vous observer?");
+        System.out.println("1. Poisson");
+        System.out.println("2. Mammifere marin");
+        System.out.println("3. Plante aquatique");
+        System.out.println("4. Mineral");
+        System.out.println("Veuillez entrer votre choix:");
+
+        while (erreur) {
+            choix = entrer();
+
+            if (choix > 4 || choix < 1) {
+                erreur = true;
+            } else {
+                erreur = false;
+            }
+        }
+
+        return choix;
     }
 }

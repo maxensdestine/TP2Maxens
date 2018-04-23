@@ -67,15 +67,16 @@ Ici le programme prend la ligne et la transforme en tableau, en se servant de ; 
 
     }
 
+    //methode du menu de debut
     private void menuDebut(ArrayList<Personne> utilisateur) {
         Scanner scanner = new Scanner(System.in); //creer scanner
-        String username;
-        String password;
-        int compteur = 0;
-        boolean verif = true;
-        int position = 0;
-        boolean loop = true;
-        boolean continuer = true;
+        String username;  //variable string pour que l'utilisateur entre son username
+        String password;  //variable string pour que l'utilisateur entre son mot de passe
+        int compteur = 0;  //compteur du nombre de tentative par l'utilisateur
+        boolean verif = true;  //true or false, le username ou le mot de passe est valide
+        int position = 0;  //position de l'utilisateur dans la liste Personne
+        boolean loop = true; //loop pour le programme
+        boolean continuer = true;  //loop pour demander a l'utilisateur ce qu'il veut faire
 
         while (loop) {
             try {
@@ -215,7 +216,7 @@ Ici le programme prend la ligne et la transforme en tableau, en se servant de ; 
                 System.out.println("Veuillez entrer votre choix:");
 
                 erreur = true;
-                
+
                 while (erreur) {
                     choix = entrer();
 
@@ -225,7 +226,7 @@ Ici le programme prend la ligne et la transforme en tableau, en se servant de ; 
                         erreur = false;
                     }
                 }
-                
+
                 // tri a bulle croissant, affichage d'un type
                 break;
             case 3:
@@ -234,27 +235,31 @@ Ici le programme prend la ligne et la transforme en tableau, en se servant de ; 
         }
     }
 
+    //methode pour ajouter un nouveau specimen au pokedex
     private void nouveauSpecimen() {
 
     }
 
+    //methode pour modifier un specimen du pokedex
     private void modifierSpecimen() {
 
     }
 
+    //methode pour afficher les statistiques du pokedex
     private void statistique() {
 
     }
 
+    //methode pour entrer nombre int de l'utilisateur
     private int entrer() {
         Scanner scanner = new Scanner(System.in); //creer scanner
-        int choix = 0;
+        int choix = 0; //variable du choix de l'utilisateur
 
         try {
             choix = Integer.parseInt(scanner.nextLine());
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException e) { //catch pour erreur de nombre reel
             System.out.println("Veuillez saisir un nombre réel!");
         }
-        return choix;
+        return choix; // return le choix de l'utilisateur
     }
 }

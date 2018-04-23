@@ -40,4 +40,9 @@ public class Personne {
 
         return nom;
     }
+
+    protected int getAge() {
+
+        return age;
+    }
 }

@@ -50,9 +50,9 @@ public class Pokedex {
                 utilisateur.add(personne);
             }
         } catch (IOException e) {
-            System.out.println("Erreur inconnu ligne 38 dans Pokedex");
+            System.out.println("Erreur inconnu ligne 38 dans Pokedex.");
         } catch (NumberFormatException e) {
-            System.out.println("Erreur lors de la conversion de l'age");
+            System.out.println("Erreur lors de la conversion de l'age.");
         }
 
         try {
@@ -132,7 +132,7 @@ public class Pokedex {
                 System.out.println("Veuillez effectuer des saisis valides!");
             }
             currentPers = utilisateur.get(position);
-            System.out.println("\n Bonjour! Bienvenue dans le pokedex!");
+            System.out.println("\nBonjour! Bienvenue dans le pokedex!");
 
             while (continuer) {
                 continuer = menu_option(utilisateur);
@@ -141,7 +141,7 @@ public class Pokedex {
 
         }
 
-        System.out.println(" \n Merci! \n"
+        System.out.println("\nMerci! \n"
                 + "Et a la prochaine fois!\n");
     }
 
@@ -370,31 +370,35 @@ public class Pokedex {
 
     private String prendreDateObserv() {
         String dateObs = null;
-        boolean estUnNombreHuit = false;
+        boolean estValide = false;
 
-        while (!estUnNombreHuit) {
+        while (!estValide) {
             System.out.println("Veuillez entrer la date d'observation en format AnneeMoisJour");
             dateObs = scanner.nextLine();
-            try {
-                Integer.parseInt(dateObs);
+
+            if (dateObs.contains("[0-9]+") == false) {
                 if (dateObs.length() == 8) {
-                    estUnNombreHuit = true;
+                    estValide = true;
+                    break;
                 } else {
-                    System.out.println("Il faut un nombre a 8 chiffres");
+                    System.out.println("Il faut un nombre a 8 chiffres.");
+                    estValide = false;
                 }
 
-            } catch (NumberFormatException e) {
-                System.out.println("Assurez-vous d'entrer uniquement des chiffres");
-
+            } else {
+                estValide = false;
+                System.out.println("Fuck");
             }
+            
         }
-
         return dateObs;
     }
 
     private double prendreTaille() {
         double taille = 0;
         boolean bonneValeur = false;
+
+        System.out.println("Veuillez entrer la taille :");
         while (!bonneValeur) {
             try {
                 taille = Integer.parseInt(scanner.nextLine());
@@ -414,7 +418,7 @@ public class Pokedex {
     }
 
     private void modifierSpecimen() {
-        int choix ;
+        int choix;
 
         System.out.println(" \n Que voulez-vous faire? \n"
                 + "1. Supprimer un specimen \n"
@@ -427,13 +431,18 @@ public class Pokedex {
         switch (choix) {
             case 1:
                 choix = entrerTypeSpecimen();
-                switch(choix){
-                    case 1:break;
-                    case 2:break;
-                    case 3:break;
-                    case 4:break;
-                    case 5:break;
-                
+                switch (choix) {
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+                    case 4:
+                        break;
+                    case 5:
+                        break;
+
                 }
 
                 //////////////////////////////////////////////////////////////////afficher la liste de tous les elements de ce type (en ordre croissant) 
@@ -451,7 +460,8 @@ public class Pokedex {
             case 3: //retour au menu principal
                 System.out.println();
                 break;
-            default:System.out.println("erreur ligne 454");
+            default:
+                System.out.println("erreur ligne 454");
         }
     }
 
@@ -483,7 +493,7 @@ public class Pokedex {
     }
 
     //methode pour entrer nombre int de l'utilisateur
-    private int entrer(int borneHaut, int borneBas) {
+    private int entrer(int borneBas, int borneHaut) {
         int choix = 0; //variable du choix de l'utilisateur
 
         boolean erreur = true;
@@ -496,11 +506,12 @@ public class Pokedex {
                 System.out.println("Veuillez saisir un nombre réel!");
             }
 
-            if (choix > borneHaut || choix < borneBas) {
+            if (choix < (borneBas - 1) || choix > (borneHaut + 1)) {
                 erreur = true;
-                System.out.println("Assurez-vous d'entrer une valeur entre " + borneBas + " et " + borneHaut);
+                System.out.println("Assurez-vous d'entrer une valeur entre " + borneBas + " et " + borneHaut + ".");
             } else {
                 erreur = false;
+                break;
             }
         }
 

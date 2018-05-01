@@ -8,11 +8,14 @@
  *
  * @author 1767250
  */
-public class Specimen {
+public abstract class Specimen {
 
-    protected String nom, couleur,dateObservation;
+    private static int numTransTotal = 1;
+
+    protected String nom, couleur, dateObservation;
     protected double taille;
     protected Personne perso;
+    protected int numTransacUnique;
 
     /**
      *
@@ -22,12 +25,18 @@ public class Specimen {
      * @param dateObservation
      * @param perso
      */
-    public Specimen(String nom, String couleur, double taille,String dateObservation, Personne perso) {
+    public Specimen(String nom, String couleur, double taille, String dateObservation, Personne perso) {
         this.nom = nom;
         this.couleur = couleur;
         this.taille = taille;
         this.dateObservation = dateObservation;
         this.perso = perso;
-    }  
+        numTransacUnique = numTransTotal;
+        numTransTotal++;
+    }
 
+    protected String getNom() {
+        return nom;
+
+    }
 }

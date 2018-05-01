@@ -10,16 +10,7 @@
  */
 public class Poisson extends Animal {
 
-    private enum Sexe {
-        MALE, FEMELE
-    };
-
-    private enum Eau {
-        SALEE, DOUCE
-    };
-    private Sexe sexe;
-    private Eau eau;
-    private String bruitDuCri;
+    private boolean estMale,estEauSalee;
 
     /**
      *
@@ -32,11 +23,10 @@ public class Poisson extends Animal {
      * @param eau
      * @param bruitDuCri
      */
-    public Poisson(String nom, String couleur, double taille, String dateObservation, Personne perso,Sexe sexe, Eau eau, String bruitDuCri) {
-       super(nom,couleur,taille,dateObservation,perso);
-        this.sexe = sexe;
-        this.eau = eau;
-        this.bruitDuCri = bruitDuCri;
+    public Poisson(String nom, String couleur, double taille, String dateObservation, Personne perso,boolean estMale,boolean estEauSalee, String bruitDuCri) {
+       super(nom,couleur,taille,dateObservation,perso,bruitDuCri);
+        this.estMale=estMale;
+        this.estEauSalee=estEauSalee;
     }
 
   

@@ -8,17 +8,10 @@
  *
  * @author 1767250
  */
-public abstract class Plante extends Specimen {
+public class Plante extends Specimen {
 
-    private enum Position {
-        FLOTTANTE, IMMERGEE
-    };
-
-    private enum Eau {
-        SALEE, DOUCE
-    };
-    private Position position;
-    private Eau eau;
+    private boolean estFlottante,estEauSalee;
+  
 
     /**
      *
@@ -30,10 +23,10 @@ public abstract class Plante extends Specimen {
      * @param position
      * @param eau
      */
-    public Plante(String nom, String couleur, double taille,String dateObservation, Personne perso,Position position, Eau eau) {
+    public Plante(String nom, String couleur, double taille,String dateObservation, Personne perso,boolean estFlottante, boolean estEauSalee) {
         super(nom,couleur,taille,dateObservation,perso);
-        this.position = position;
-        this.eau = eau;
+        this.estFlottante = estFlottante;
+        this.estEauSalee = estEauSalee;
     }
 
 }

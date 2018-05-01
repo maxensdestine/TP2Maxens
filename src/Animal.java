@@ -10,6 +10,7 @@
  */
 public abstract class Animal extends Specimen {
 
+      protected String bruitDuCri;
     /**
      *
      * @param nom
@@ -18,8 +19,9 @@ public abstract class Animal extends Specimen {
      * @param dateObservation
      * @param perso
      */
-    public Animal(String nom, String couleur, double taille,String dateObservation, Personne perso) {
+    public Animal(String nom, String couleur, double taille,String dateObservation, Personne perso,String bruitDuCri) {
         super(nom,couleur,taille,dateObservation,perso);
+        this.bruitDuCri=bruitDuCri;
     }
 
     

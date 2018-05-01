@@ -10,11 +10,7 @@
  */
 public class Autre extends Animal {
 
-    private enum Sexe {
-        MALE, FEMELE
-    };
-    private Sexe sexe;
-    private String bruitDuCri;
+    private boolean estMale;
 
     /**
      *
@@ -26,10 +22,9 @@ public class Autre extends Animal {
      * @param sexe
      * @param bruitDuCri
      */
-    public Autre(String nom, String couleur, double taille, String dateObservation, Personne perso,Sexe sexe, String bruitDuCri) {
-        super(nom,couleur,taille,dateObservation,perso);
-        this.sexe = sexe;
-        this.bruitDuCri = bruitDuCri;
+    public Autre(String nom, String couleur, double taille, String dateObservation, Personne perso,boolean estMale, String bruitDuCri) {
+        super(nom,couleur,taille,dateObservation,perso,bruitDuCri);
+        this.estMale = estMale;
     }
 
     @Override

@@ -10,20 +10,8 @@
  */
 public class MammifereMarin extends Animal {
 
-    private enum Sexe {
-        MALE, FEMELE
-    };
-
-    private enum Eau {
-        SALEE, DOUCE
-    };
-
-    private enum Alimentation {
-        CARNIVORE, VEGETARIEN
-    };
-    private Sexe sexe;
-    private Eau eau;
-    private String bruitDuCri;
+    private boolean estMale,estEauSalee,estCarnivore;
+ 
 
     /**
      *
@@ -36,11 +24,12 @@ public class MammifereMarin extends Animal {
      * @param eau
      * @param bruitDuCri
      */
-    public MammifereMarin(String nom, String couleur, double taille, String dateObservation, Personne perso,Sexe sexe, Eau eau, String bruitDuCri) {
-        super(nom,couleur,taille,dateObservation,perso);
-        this.sexe = sexe;
-        this.eau = eau;
-        this.bruitDuCri = bruitDuCri;
+    public MammifereMarin(String nom, String couleur, double taille, String dateObservation, Personne perso,boolean estMale,
+            boolean estEauSalee,boolean estCarnivore,String bruitDuCri) {
+        super(nom,couleur,taille,dateObservation,perso,bruitDuCri);
+        this.estMale= estMale;
+        this.estEauSalee = estEauSalee;
+        this.estCarnivore=estCarnivore;
     }
 
     @Override

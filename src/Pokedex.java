@@ -1,3 +1,4 @@
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -16,20 +17,16 @@ import java.util.Scanner;
  */
 public class Pokedex {
 
+    private static Scanner scanner = new Scanner(System.in);
+
     private ArrayList<Personne> utilisateur = new ArrayList();
-    private ArrayList<Specimen> infoPersonne = new ArrayList();
-    private ArrayList<Animal> infoAnimal = new ArrayList();
-    private ArrayList<Poisson> infoPoisson = new ArrayList();
-    private ArrayList<MammifereMarin> infoMammifereMarin = new ArrayList();
-    private ArrayList<Autre> infoAutre = new ArrayList();
-    private ArrayList<Mineral> infoMineral = new ArrayList();
-    private ArrayList<Plante> infoPlante = new ArrayList();
-    
-    
+    private ArrayList<Specimen> infoSpecimen = new ArrayList();
+
+    private Personne currentPers = null;
+
     public void programme() {
 
         chargerPersonne();
-        test();
         menuDebut(utilisateur);
 
     }
@@ -77,76 +74,75 @@ public class Pokedex {
 
     //methode du menu de debut
     private void menuDebut(ArrayList<Personne> utilisateur) {
-        Scanner scanner = new Scanner(System.in); //creer scanner
-        String username;  //variable string pour que l'utilisateur entre son username
-        String password;  //variable string pour que l'utilisateur entre son mot de passe
-        int compteur = 0;  //compteur du nombre de tentative par l'utilisateur
-        boolean verif = true;  //true or false, le username ou le mot de passe est valide
-        int position = 0;  //position de l'utilisateur dans la liste Personne
-        boolean loop = true; //loop pour le programme
-        boolean continuer = true;  //loop pour demander a l'utilisateur ce qu'il veut faire
+        String username, password;  //variable string pour que l'utilisateur entre son username
+        //variable string pour que l'utilisateur entre son mot de passe
+        int compteur = 0, position = 0;  //compteur du nombre de tentative par l'utilisateur
+        //true or false, le username ou le mot de passe est valide
+        //position de l'utilisateur dans la liste Personne
+        boolean limiteSortie = true, continuer = true, bonneValeur = false; //loop pour le programme
+        //loop pour demander a l'utilisateur ce qu'il veut faire
 
-        while (loop) {
+        while (limiteSortie) {
             try {
-                while (compteur < 3 && verif) {
+                while (compteur < 3 && !bonneValeur) {
+
                     System.out.println("Nom d'utilisateur:");
                     username = scanner.nextLine();
 
                     for (int i = 0; i < (utilisateur.size()); i++) {
                         if (username.equals(utilisateur.get(i).getCodeAcces())) {
-                            verif = false;
-                            loop = true;
+                            bonneValeur = true;
+                            limiteSortie = true;
                             position = i;
                             break;
                         } else {
-                            loop = false;
+                            limiteSortie = false;
                         }
                     }
 
                     compteur++;
                 }
 
-                if (loop == false) {
+                if (!limiteSortie) {
                     break;
                 }
 
-                verif = true;
+                bonneValeur = false;
                 compteur = 0;
 
-                while (compteur < 3 && verif) {
+                while (compteur < 3 && !bonneValeur) {
                     System.out.println("Mot de passe:");
                     password = scanner.nextLine();
 
                     if (password.equals(utilisateur.get(position).getMotDePasseEncryp())) {
-                        verif = false;
-                        loop = true;
+                        bonneValeur = true;
+                        limiteSortie = true;
                     } else {
-                        loop = false;
+                        limiteSortie = false;
                     }
 
                     compteur++;
                 }
 
-                if (loop == false) {
+                if (!limiteSortie) {
                     break;
                 }
 
             } catch (StringIndexOutOfBoundsException e) {
                 System.out.println("Veuillez effectuer des saisis valides!");
             }
-
-            System.out.println("");
-            System.out.println("Bonjour! Bienvenu dans le pokedex!");
+            currentPers = utilisateur.get(position);
+            System.out.println("\n Bonjour! Bienvenue dans le pokedex!");
 
             while (continuer) {
                 continuer = menu_option(utilisateur);
-            }
-            //////////////////////////////////////////////////////////////////////sauvegarder toute les entrer (SERIALISATION)
-            loop = false;
+            }/////////////sauvegarder toute les entrer (SERIALISATION)
+            limiteSortie = false;
+
         }
-        System.out.println("");
-        System.out.println("Merci!");
-        System.out.println("Et a la prochaine fois!");
+
+        System.out.println(" \n Merci! \n"
+                + "Et a la prochaine fois!\n");
     }
 
     private boolean menu_option(ArrayList<Personne> utilisateur) {
@@ -154,23 +150,15 @@ public class Pokedex {
         int choix = 0;
         boolean continuer = true;
 
-        System.out.println("Que voulez-vous faire?");
-        System.out.println("1. Consultez des spécimens déjà saisis");
-        System.out.println("2. Saisir un nouveau spéciment");
-        System.out.println("3. Modifier un spécimen");
-        System.out.println("4. Statistique");
-        System.out.println("5. Quitter le programme");
-        System.out.println("Veuillez entrer votre choix:");
+        System.out.println("Que voulez-vous faire? \n"
+                + "1. Consultez des spécimens déjà saisis \n"
+                + "2. Saisir un nouveau spéciment \n"
+                + "3. Modifier un spécimen \n"
+                + "4. Statistique \n"
+                + "5. Quitter le programme \n"
+                + "Veuillez appuyer sur le chiffre correspondant a votre choix: \n");
 
-        while (erreur) {
-            choix = entrer();
-
-            if (choix > 5 || choix < 1) {
-                erreur = true;
-            } else {
-                erreur = false;
-            }
-        }
+        choix = entrer(1, 5);
 
         switch (choix) {
             case 1:
@@ -194,25 +182,16 @@ public class Pokedex {
     }
 
     private void consulterSpecimen() {
-        boolean erreur = true;
+
         int choix = 0;
 
-        System.out.println("");
-        System.out.println("Que voulez-vous faire?");
-        System.out.println("1. Afficher toutes les entrées?");
-        System.out.println("2. Afficher les entrées d'un seul type?");
-        System.out.println("3. Afficher les animaux par ordre chronologique d'observation?");
-        System.out.println("Veuillez entrer votre choix:");
+        System.out.println("Que voulez-vous faire? \n"
+                + "1. Afficher toutes les entrées? \n"
+                + "2. Afficher les entrées d'un seul type? \n"
+                + "3. Afficher les animaux par ordre chronologique d'observation? \n"
+                + "Veuillez entrer votre choix: \n");
 
-        while (erreur) {
-            choix = entrer();
-
-            if (choix > 3 || choix < 1) {
-                erreur = true;
-            } else {
-                erreur = false;
-            }
-        }
+        choix = entrer(1, 3);
 
         switch (choix) {
             case 1:
@@ -232,39 +211,230 @@ public class Pokedex {
 
     //methode pour ajouter un nouveau specimen au pokedex
     private void nouveauSpecimen() {
-        //////////////////////////////////////////////////////////////////////////creer un numero de transaction unique
-        //////////////////////////////////////////////////////////////////////////la date d'observation (sous qu'elle forme? DD/MM/YYYY?)
-        //////////////////////////////////////////////////////////////////////////le type d'entrer
-        //////////////////////////////////////////////////////////////////////////tout les attributs propres a ce type
-        //////////////////////////////////////////////////////////////////////////la quantite observer
-        //////////////////////////////////////////////////////////////////////////garder en memoire l'utilisateur qui effectue cette entrer
+
+        switch (entrerTypeSpecimen()) {
+            case 1:
+                creationMammifere();
+                break;
+            case 2:
+                creationPoisson();
+                break;
+            case 3:
+                creationAutre();
+                break;
+            case 4:
+                creationPlante();
+                break;
+            case 5:
+                creationMineral();
+                break;
+        }
+
     }
 
     //methode pour modifier un specimen du pokedex
-    private void modifierSpecimen() {
-        boolean erreur = true;
-        int choix = 0;
+    private void creationMammifere() {
+        String nom, couleur, dateObs, bruitDuCri;
+        double taille;
+        boolean estMale, estEauSalee, estCarnivore;
+        nom = prendreNom();
+        couleur = prendreCouleur();
+        taille = prendreTaille();
+        dateObs = prendreDateObserv();
+        estMale = estMale();
+        estEauSalee = estEauSalee();
+        estCarnivore = estCarnivore();
+        bruitDuCri = prendreBruitDuCri();
+        Specimen specimen = new MammifereMarin(nom, couleur, taille, dateObs, currentPers, estMale, estEauSalee, estCarnivore, bruitDuCri);
+        infoSpecimen.add(specimen);
 
-        System.out.println("");
-        System.out.println("Que voulez-vous faire?");
-        System.out.println("1. Supprimer un specimen");
-        System.out.println("2. Modifier la quantite apercu d'un specimen");
-        System.out.println("3. Retourner au menu principal");
-        System.out.println("Veuillez entrer votre choix:");
+    }
 
-        while (erreur) {
-            choix = entrer();
+    private void creationPoisson() {
+        String nom, couleur, dateObs, bruitDuCri;
+        double taille;
+        boolean estMale, estEauSalee;
 
-            if (choix > 3 || choix < 1) {
-                erreur = true;
-            } else {
-                erreur = false;
+        nom = prendreNom();
+        couleur = prendreCouleur();
+        taille = prendreTaille();
+        dateObs = prendreDateObserv();
+        estMale = estMale();
+        estEauSalee = estEauSalee();
+        bruitDuCri = prendreBruitDuCri();
+        Specimen specimen = new Poisson(nom, couleur, taille, dateObs, currentPers, estMale, estEauSalee, bruitDuCri);
+        infoSpecimen.add(specimen);
+
+    }
+
+    private void creationAutre() {
+        String nom, couleur, dateObs, bruitDuCri;
+        double taille;
+        boolean estMale;
+        nom = prendreNom();
+        couleur = prendreCouleur();
+        taille = prendreTaille();
+        dateObs = prendreDateObserv();
+        estMale = estMale();
+        bruitDuCri = prendreBruitDuCri();
+        Specimen specimen = new Autre(nom, couleur, taille, dateObs, currentPers, estMale, bruitDuCri);
+        infoSpecimen.add(specimen);
+
+    }
+
+    private void creationPlante() {
+        String nom, couleur, dateObs;
+        double taille;
+        boolean estEauSalee, estFlottante;
+        nom = prendreNom();
+        couleur = prendreCouleur();
+        taille = prendreTaille();
+        dateObs = prendreDateObserv();
+        estEauSalee = estEauSalee();
+        estFlottante = estFlottante();
+        Specimen specimen = new Plante(nom, couleur, taille, dateObs, currentPers, estEauSalee, estFlottante);
+        infoSpecimen.add(specimen);
+
+    }
+
+    private void creationMineral() {
+        String nom, couleur, dateObs;
+        double taille;
+        nom = prendreNom();
+        couleur = prendreCouleur();
+        taille = prendreTaille();
+        dateObs = prendreDateObserv();
+        Specimen specimen = new Mineral(nom, couleur, taille, dateObs, currentPers);
+        infoSpecimen.add(specimen);
+    }
+
+    private boolean estFlottante() {
+        boolean estFlottante = true;
+        System.out.println("Flottante(1) ou immerge(2) ?");
+
+        if (entrer(1, 2) == 2) {
+            estFlottante = false;
+        }
+
+        return estFlottante;
+
+    }
+
+    private boolean estEauSalee() {
+        boolean estEauSalee = true;
+        System.out.println("Eau salee(1) ou eau douce(2) ?");
+
+        if (entrer(1, 2) == 2) {
+            estEauSalee = false;
+        }
+
+        return estEauSalee;
+
+    }
+
+    private boolean estCarnivore() {
+        boolean estCarnivore = true;
+        System.out.println("Carnivore(1) ou vegetarien(2) ?");
+
+        if (entrer(1, 2) == 2) {
+            estCarnivore = false;
+        }
+
+        return estCarnivore;
+
+    }
+
+    private boolean estMale() {
+        boolean estMale = true;
+        System.out.println("Male(1) ou femele(2) ?");
+
+        if (entrer(1, 2) == 2) {
+            estMale = false;
+        }
+
+        return estMale;
+    }
+
+    private String prendreNom() {
+
+        System.out.println("Veuillez entrer le nom du specimen");
+        return scanner.nextLine();
+
+    }
+
+    private String prendreCouleur() {
+
+        System.out.println("Veuillez entrer la couleur du specimen");
+        return scanner.nextLine();
+    }
+
+    private String prendreDateObserv() {
+        String dateObs = null;
+        boolean estUnNombreHuit = false;
+
+        while (!estUnNombreHuit) {
+            System.out.println("Veuillez entrer la date d'observation en format AnneeMoisJour");
+            dateObs = scanner.nextLine();
+            try {
+                Integer.parseInt(dateObs);
+                if (dateObs.length() == 8) {
+                    estUnNombreHuit = true;
+                } else {
+                    System.out.println("Il faut un nombre a 8 chiffres");
+                }
+
+            } catch (NumberFormatException e) {
+                System.out.println("Assurez-vous d'entrer uniquement des chiffres");
+
             }
         }
+
+        return dateObs;
+    }
+
+    private double prendreTaille() {
+        double taille = 0;
+        boolean bonneValeur = false;
+        while (!bonneValeur) {
+            try {
+                taille = Integer.parseInt(scanner.nextLine());
+                bonneValeur = true;
+            } catch (NumberFormatException e) {
+                System.out.println("Assurez-vous d'entrer un nombre");
+            }
+
+        }
+        return taille;
+    }
+
+    private String prendreBruitDuCri() {
+        System.out.println("Veuillez entrer le bruit que fait le specimen");
+
+        return scanner.nextLine();
+    }
+
+    private void modifierSpecimen() {
+        int choix ;
+
+        System.out.println(" \n Que voulez-vous faire? \n"
+                + "1. Supprimer un specimen \n"
+                + "2. Modifier la quantite apercu d'un specimen \n"
+                + "3. Retourner au menu principal \n"
+                + "Veuillez entrer votre choix: \n");
+
+        choix = entrer(1, 3);
 
         switch (choix) {
             case 1:
                 choix = entrerTypeSpecimen();
+                switch(choix){
+                    case 1:break;
+                    case 2:break;
+                    case 3:break;
+                    case 4:break;
+                    case 5:break;
+                
+                }
 
                 //////////////////////////////////////////////////////////////////afficher la liste de tous les elements de ce type (en ordre croissant) 
                 //////////////////////////////////////////////////////////////////demander quel element supprimer
@@ -279,32 +449,23 @@ public class Pokedex {
                 //////////////////////////////////////////////////////////////////supprimer cet element
                 break;
             case 3: //retour au menu principal
-                System.out.println("");
+                System.out.println();
                 break;
+            default:System.out.println("erreur ligne 454");
         }
     }
 
     //methode pour afficher les statistiques du pokedex
     private void statistique(ArrayList<Personne> utilisateur) {
-        boolean erreur = true;
         int choix = 0;
 
-        System.out.println("");
-        System.out.println("Que voulez-vous voir?");
-        System.out.println("1. Afficher le nombre d'entrees, pour chacun des specimens?");
-        System.out.println("2. Afficher le nombre d'entrees, pour chacune des personnes?");
-        System.out.println("3. Afficher les informations des personnes du syteme?");
-        System.out.println("Veuillez entrer votre choix:");
+        System.out.println("\n Que voulez-vous voir? \n"
+                + "1. Afficher le nombre d'entrees, pour chacun des specimens? \n"
+                + "2. Afficher le nombre d'entrees, pour chacune des personnes? \n"
+                + "3. Afficher les informations des personnes du syteme? \n"
+                + "Veuillez entrer votre choix:");
 
-        while (erreur) {
-            choix = entrer();
-
-            if (choix > 3 || choix < 1) {
-                erreur = true;
-            } else {
-                erreur = false;
-            }
-        }
+        choix = entrer(1, 3);
 
         switch (choix) {
             case 1:
@@ -322,39 +483,43 @@ public class Pokedex {
     }
 
     //methode pour entrer nombre int de l'utilisateur
-    private int entrer() {
-        Scanner scanner = new Scanner(System.in); //creer scanner
+    private int entrer(int borneHaut, int borneBas) {
         int choix = 0; //variable du choix de l'utilisateur
 
-        try {
-            choix = Integer.parseInt(scanner.nextLine());
-        } catch (NumberFormatException e) { //catch pour erreur de nombre reel
-            System.out.println("Veuillez saisir un nombre réel!");
+        boolean erreur = true;
+
+        while (erreur) {
+            try {
+                choix = Integer.parseInt(scanner.nextLine());
+
+            } catch (NumberFormatException e) { //catch pour erreur de nombre reel
+                System.out.println("Veuillez saisir un nombre réel!");
+            }
+
+            if (choix > borneHaut || choix < borneBas) {
+                erreur = true;
+                System.out.println("Assurez-vous d'entrer une valeur entre " + borneBas + " et " + borneHaut);
+            } else {
+                erreur = false;
+            }
         }
+
         return choix; // return le choix de l'utilisateur
     }
 
     //methode pour choisir le type de specimen desirer
     private int entrerTypeSpecimen() {
-        boolean erreur = true;
         int choix = 0;
 
-        System.out.println("Quel type desirez-vous observer?");
-        System.out.println("1. Poisson");
-        System.out.println("2. Mammifere marin");
-        System.out.println("3. Plante aquatique");
-        System.out.println("4. Mineral");
-        System.out.println("Veuillez entrer votre choix:");
+        System.out.println("Quel type desirez-vous ? \n"
+                + "1. Mammifere marin \n"
+                + "2. Poisson \n"
+                + "3. Autre type d'animal"
+                + "4. Plante aquatique \n"
+                + "5. Mineral \n"
+                + "Veuillez entrer votre choix: \n");
 
-        while (erreur) {
-            choix = entrer();
-
-            if (choix > 4 || choix < 1) {
-                erreur = true;
-            } else {
-                erreur = false;
-            }
-        }
+        choix = entrer(1, 5);
 
         return choix;
     }

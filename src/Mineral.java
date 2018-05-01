@@ -8,7 +8,7 @@
  *
  * @author 1767250
  */
-public abstract class Mineral extends Specimen {
+public class Mineral extends Specimen {
 
     /**
      *

@@ -543,7 +543,19 @@ public class Pokedex {
                         + "- " + compteurMineral + " entrees de mineral. \n");
                 break;
             case 2:
-                //////////////////////////////////////////////////////////////////afficher le nombre d'entrer pour chacune des personnes
+                int[] arrayUser = new int[utilisateur.size()];
+
+                for (int i = 0; i < (infoSpecimen.size()); i++) {
+                    for (int y = 0; y < utilisateur.size(); y++) {
+                        if (infoSpecimen.get(i).getPersonne().getNom() == utilisateur.get(y).getNom()) {
+                            arrayUser[y]++;
+                        }
+                    }
+                }
+
+                for (int k = 0; k < utilisateur.size(); k++) {
+                    System.out.println("L'utilisateur no. " + (k + 1) + " qui se nomme " + utilisateur.get(k).getNom() + " a effectue " + arrayUser[k] + " entrees.");
+                }
                 break;
             case 3:
                 for (int i = 0; i < (utilisateur.size()); i++) {
@@ -567,7 +579,7 @@ public class Pokedex {
                 System.out.println("Veuillez saisir un nombre réel!");
             }
 
-            if (choix < (borneBas - 1) || choix > (borneHaut + 1)) {
+            if (choix < (borneBas) || choix > (borneHaut)) {
                 erreur = true;
                 System.out.println("Assurez-vous d'entrer une valeur entre " + borneBas + " et " + borneHaut + ".");
             } else {

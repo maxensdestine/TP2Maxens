@@ -254,7 +254,6 @@ public class Pokedex {
         String nom, couleur, dateObs, bruitDuCri;
         double taille;
         boolean estMale, estEauSalee;
-
         nom = prendreNom();
         couleur = prendreCouleur();
         taille = prendreTaille();
@@ -370,7 +369,7 @@ public class Pokedex {
     private String prendreCouleur() {
         String couleur = "";
         System.out.println("Veuillez entrer la couleur du specimen:");
-        
+
         try {
             couleur = scanner.nextLine();
         } catch (StringIndexOutOfBoundsException e) {
@@ -431,7 +430,7 @@ public class Pokedex {
     private void modifierSpecimen() {
         int choix;
 
-        System.out.println(" \n Que voulez-vous faire? \n"
+        System.out.println("\nQue voulez-vous faire? \n"
                 + "1. Supprimer un specimen \n"
                 + "2. Modifier la quantite apercu d'un specimen \n"
                 + "3. Retourner au menu principal \n"
@@ -444,21 +443,52 @@ public class Pokedex {
                 choix = entrerTypeSpecimen();
                 switch (choix) {
                     case 1:
+                        for (int i = 0; i < (infoSpecimen.size()); i++) {
+                            if (infoSpecimen.get(i) instanceof MammifereMarin) {
+                                System.out.println("Specimen no." + (i + 1) + " est " + infoSpecimen.get(i).getNom() + ".");
+                            }
+                        }
+
+                        supprimerSpecimen();
                         break;
                     case 2:
+                        for (int i = 0; i < (infoSpecimen.size()); i++) {
+                            if (infoSpecimen.get(i) instanceof Poisson) {
+                                System.out.println("Specimen no." + (i + 1) + " est " + infoSpecimen.get(i).getNom() + ".");
+                            }
+                        }
+
+                        supprimerSpecimen();
                         break;
                     case 3:
+                        for (int i = 0; i < (infoSpecimen.size()); i++) {
+                            if (infoSpecimen.get(i) instanceof Autre) {
+                                System.out.println("Specimen no." + (i + 1) + " est " + infoSpecimen.get(i).getNom() + ".");
+                            }
+                        }
+
+                        supprimerSpecimen();
                         break;
                     case 4:
+                        for (int i = 0; i < (infoSpecimen.size()); i++) {
+                            if (infoSpecimen.get(i) instanceof Plante) {
+                                System.out.println("Specimen no." + (i + 1) + " est " + infoSpecimen.get(i).getNom() + ".");
+                            }
+                        }
+
+                        supprimerSpecimen();
                         break;
                     case 5:
+                        for (int i = 0; i < (infoSpecimen.size()); i++) {
+                            if (infoSpecimen.get(i) instanceof Mineral) {
+                                System.out.println("Specimen no." + (i + 1) + " est " + infoSpecimen.get(i).getNom() + ".");
+                            }
+                        }
+
+                        supprimerSpecimen();
                         break;
 
                 }
-
-                //////////////////////////////////////////////////////////////////afficher la liste de tous les elements de ce type (en ordre croissant) 
-                //////////////////////////////////////////////////////////////////demander quel element supprimer
-                //////////////////////////////////////////////////////////////////supprimer cet element
                 break;
             case 2:
                 choix = entrerTypeSpecimen();
@@ -536,7 +566,7 @@ public class Pokedex {
         System.out.println("Quel type desirez-vous ? \n"
                 + "1. Mammifere marin \n"
                 + "2. Poisson \n"
-                + "3. Autre type d'animal"
+                + "3. Autre type d'animal \n"
                 + "4. Plante aquatique \n"
                 + "5. Mineral \n"
                 + "Veuillez entrer votre choix: \n");
@@ -544,5 +574,14 @@ public class Pokedex {
         choix = entrer(1, 5);
 
         return choix;
+    }
+
+    private void supprimerSpecimen() {
+        int aSupprimer;
+        System.out.println("Quel element voulez-vous supprimer?");
+
+        aSupprimer = entrer(1, (infoSpecimen.size()));
+
+        infoSpecimen.remove(aSupprimer - 1);
     }
 }

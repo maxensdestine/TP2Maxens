@@ -39,4 +39,8 @@ public abstract class Specimen {
         return nom;
 
     }
+
+    protected Personne getPersonne() {
+        return perso;
+    }
 }

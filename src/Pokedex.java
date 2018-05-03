@@ -518,9 +518,29 @@ public class Pokedex {
 
         choix = entrer(1, 3);
 
+        int compteurMammifereMarin = 0, compteurPoisson = 0, compteurAutre = 0, compteurPlante = 0, compteurMineral = 0;
         switch (choix) {
             case 1:
-                //////////////////////////////////////////////////////////////////afficher le nombre d'entrer pour chacun des types de specimens
+                for (int i = 0; i < (infoSpecimen.size()); i++) {
+                    if (infoSpecimen.get(i) instanceof MammifereMarin) {
+                        compteurMammifereMarin++;
+                    } else if (infoSpecimen.get(i) instanceof Poisson) {
+                        compteurPoisson++;
+                    } else if (infoSpecimen.get(i) instanceof Autre) {
+                        compteurAutre++;
+                    } else if (infoSpecimen.get(i) instanceof Plante) {
+                        compteurPlante++;
+                    } else if (infoSpecimen.get(i) instanceof Mineral) {
+                        compteurMineral++;
+                    }
+                }
+
+                System.out.println("Il y a :\n"
+                        + "- " + compteurMammifereMarin + " entrees de mammifere marin, \n"
+                        + "- " + compteurPoisson + " entrees de poisson, \n"
+                        + "- " + compteurAutre + " entrees de autre, \n"
+                        + "- " + compteurPlante + " entrees de plante aquatique, \n"
+                        + "- " + compteurMineral + " entrees de mineral. \n");
                 break;
             case 2:
                 //////////////////////////////////////////////////////////////////afficher le nombre d'entrer pour chacune des personnes

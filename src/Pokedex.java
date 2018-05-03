@@ -310,7 +310,7 @@ public class Pokedex {
 
     private boolean estFlottante() {
         boolean estFlottante = true;
-        System.out.println("Flottante(1) ou immerge(2) ?");
+        System.out.println("Flottante(1) ou immerge(2)?");
 
         if (entrer(1, 2) == 2) {
             estFlottante = false;
@@ -322,7 +322,7 @@ public class Pokedex {
 
     private boolean estEauSalee() {
         boolean estEauSalee = true;
-        System.out.println("Eau salee(1) ou eau douce(2) ?");
+        System.out.println("Eau salee(1) ou eau douce(2)?");
 
         if (entrer(1, 2) == 2) {
             estEauSalee = false;
@@ -334,7 +334,7 @@ public class Pokedex {
 
     private boolean estCarnivore() {
         boolean estCarnivore = true;
-        System.out.println("Carnivore(1) ou vegetarien(2) ?");
+        System.out.println("Carnivore(1) ou vegetarien(2)?");
 
         if (entrer(1, 2) == 2) {
             estCarnivore = false;
@@ -346,7 +346,7 @@ public class Pokedex {
 
     private boolean estMale() {
         boolean estMale = true;
-        System.out.println("Male(1) ou femele(2) ?");
+        System.out.println("Male(1) ou femelle(2)?");
 
         if (entrer(1, 2) == 2) {
             estMale = false;
@@ -356,16 +356,28 @@ public class Pokedex {
     }
 
     private String prendreNom() {
+        String nom = "";
+        System.out.println("Veuillez entrer le nom du specimen:");
 
-        System.out.println("Veuillez entrer le nom du specimen");
-        return scanner.nextLine();
-
+        try {
+            nom = scanner.nextLine();
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("Veuillez saisir un nom plus court!");
+        }
+        return nom;
     }
 
     private String prendreCouleur() {
+        String couleur = "";
+        System.out.println("Veuillez entrer la couleur du specimen:");
+        
+        try {
+            couleur = scanner.nextLine();
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("Veuillez saisir un nom plus court!");
+        }
+        return couleur;
 
-        System.out.println("Veuillez entrer la couleur du specimen");
-        return scanner.nextLine();
     }
 
     private String prendreDateObserv() {
@@ -373,7 +385,7 @@ public class Pokedex {
         boolean estValide = false;
 
         while (!estValide) {
-            System.out.println("Veuillez entrer la date d'observation en format AnneeMoisJour");
+            System.out.println("Veuillez entrer la date d'observation en format AnneeMoisJour:");
             dateObs = scanner.nextLine();
 
             if (dateObs.contains("[0-9]+") == false) {
@@ -381,15 +393,9 @@ public class Pokedex {
                     estValide = true;
                     break;
                 } else {
-                    System.out.println("Il faut un nombre a 8 chiffres.");
-                    estValide = false;
+                    System.out.println("Il faut saisir un nombre de 8 chiffres.");
                 }
-
-            } else {
-                estValide = false;
-                System.out.println("Fuck");
             }
-            
         }
         return dateObs;
     }
@@ -398,13 +404,13 @@ public class Pokedex {
         double taille = 0;
         boolean bonneValeur = false;
 
-        System.out.println("Veuillez entrer la taille :");
+        System.out.println("Veuillez entrer la taille:");
         while (!bonneValeur) {
             try {
                 taille = Integer.parseInt(scanner.nextLine());
                 bonneValeur = true;
             } catch (NumberFormatException e) {
-                System.out.println("Assurez-vous d'entrer un nombre");
+                System.out.println("Assurez-vous d'entrer un nombre.");
             }
 
         }
@@ -412,9 +418,14 @@ public class Pokedex {
     }
 
     private String prendreBruitDuCri() {
-        System.out.println("Veuillez entrer le bruit que fait le specimen");
-
-        return scanner.nextLine();
+        String bruit = "";
+        System.out.println("Veuillez entrer le bruit que fait le specimen:");
+        try {
+            bruit = scanner.nextLine();
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("Veuillez saisir un nom plus court!");
+        }
+        return bruit;
     }
 
     private void modifierSpecimen() {
